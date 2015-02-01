@@ -1,0 +1,86 @@
+#
+# based on http://theoldschooldevops.com/2008/02/09/bash-ini-parser/
+#
+
+function debug {
+   return #abort debug
+   echo $*
+   echo "${ini[*]}"
+   echo
+}
+
+function cfg_parser {
+   ini="$(<$1)"                # read the file
+   ini="${ini//[/\\[}"          # escape [
+   debug
+   ini="${ini//]/\\]}"          # escape ]
+   debug
+   IFS=$'\n' && ini=( ${ini} ) # convert to line-array
+   debug
+   ini=( ${ini[*]//;*/} )      # remove comments with ;
+   debug
+   ini=( ${ini[*]/	=/=} )  # remove tabs before =
+   debug
+   ini=( ${ini[*]/#	/} )  # remove init tabs #TODO: remove all not just one
+   debug
+   ini=( ${ini[*]/# /} )  # remove init space #TODO: remove all not just one
+   debug
+   ini=( ${ini[*]/=	/=} )   # remove tabs after =
+   debug
+   ini=( ${ini[*]/ = /=} )   # remove anything with a space around =
+   debug
+   ini=( ${ini[*]/#\\[/\}$'\n'cfg.section.} ) # set section prefix
+   debug
+   ini=( ${ini[*]/%\\]/ \(} )    # convert text2function (1)
+   debug
+   ini=( ${ini[*]/=/=\( } )    # convert item to array
+   debug
+   ini=( ${ini[*]/%/ \)} )     # close array parenthesis
+   debug
+   ini=( ${ini[*]/%\\ \)/ \\} ) # the multiline trick
+   debug
+   ini=( ${ini[*]/%\( \)/\(\) \{} ) # convert text2function (2)
+   debug
+   ini=( ${ini[*]/%\} \)/\}} ) # remove extra parenthesis
+   debug
+   ini[0]="" # remove first element
+   debug
+   ini[${#ini[*]} + 1]='}'    # add the last brace
+   debug
+   eval "$(echo "${ini[*]}")" # eval the result
+}
+
+function cfg_writer {
+   IFS=' '$'\n'
+   fun="$(declare -F)"
+   fun="${fun//declare -f/}"
+   for f in $fun; do
+      [ "${f#cfg.section}" == "${f}" ] && continue
+      item="$(declare -f ${f})"
+      item="${item##*\{}"
+      item="${item/\}}"
+      item="${item%)*}"
+      item="${item});"
+      vars=""
+      while [ "$item" != "" ]
+      do
+         newvar="${item%%=*}"
+         vars="$vars $newvar"
+         item="${item#*;}"
+      done
+      eval $f
+      echo "[${f#cfg.section.}]"
+      for var in $vars; do
+         eval 'local length=${#'$var'[*]}'
+         if [ $length == 1 ]
+         then
+            echo $var=\"${!var}\"
+         else 
+            echo ";$var is an array"
+            eval 'echo $var=\"${'$var'[*]}\"'
+         fi
+      done
+   done
+}
+
+# vim: filetype=sh
