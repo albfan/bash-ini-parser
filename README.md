@@ -2,37 +2,59 @@
 
 A ini file parser for bash relying only on builtins
 
-### Using
+### Usage
 
-You must copy bash-ini-parser on your project and source it
+You must copy [bash-ini-parser](https://github.com/albfan/bash-ini-parser/blob/master/bash-ini-parser) on your project and source it:
 
     $ source bash-ini-parser
 
 or
 
-    $ . source bash-ini-parser
+    $ . bash-ini-parser
 
-It will declare functions per section called cfg.section.<section> with variable declaration inside so you can access its values using
+Then, gived a properties file (file.ini):
+
+    [section]
+       key = value
+       key2 = value2
+
+Issuing:
+
+    $ cfg_parser file.ini
+
+Will declare functions per ini section called cfg.section.<section> which declares variables named as keynames so you can access its values using
 
     $ cfg.section.<section>
-    $ echo $var
+    $ echo $key
+    value
+    $ echo $key2
+    value2
 
-### test it
+### Example
 
-Goto test directory and launch test.sh
+Goto scripts directory and launch [example.sh](https://github.com/albfan/bash-ini-parser/blob/master/scripts/example.sh)
 
-    $ cd test
-    $ ./test.sh
+    $ cd scripts
+    $ ./example.sh
 
 Inspect its code, reuse on your scripts
 
-If you want to test your existing ini file use testfile.sh
+### Checking a ini file
 
-    $ testfile.sh &gt;customfile.ini&lt; sectionname varname
+If you want to test your existing ini file use [getkeyfromsection.sh](https://github.com/albfan/bash-ini-parser/blob/master/scripts/getkeyfromsection.sh)
+
+    $ getkeyfromsection.sh <file.ini> sectionname keyname
 
 e.g.:
 
+See [file.ini](https://github.com/albfan/bash-ini-parser/blob/master/scripts/file.ini), it is a file with different indentations, and comments 
+
+Issuing:
+
     $ ./testfile.sh file.ini sec1 var4
+
+Outputs:
+
     show parsed file.ini
     [sec1]
     var1="foo"
