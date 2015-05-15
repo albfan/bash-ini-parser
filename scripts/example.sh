@@ -3,7 +3,7 @@
 source ../bash-ini-parser
 
 TEST_FILE="file.ini"
-# parse the config file called 'myfile.ini'
+# parse the config file called 'file.ini'
 cfg_parser "$TEST_FILE"
 
 # show parsed ini file
