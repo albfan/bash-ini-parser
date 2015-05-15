@@ -32,3 +32,21 @@ echo enable section \'sec1\'
 cfg_section_sec1
 
 echo "var2 value is \"$var2\""
+
+echo
+echo update values:
+echo
+
+echo update sec1.var1 to \"foobar\"
+var1="foobar"
+cfg_update sec1 var1
+echo update sec2.var1 to \"barfoo\"
+var1="barfoo"
+cfg_update sec2 var1
+
+# note you don't need to load section to update it
+cfg_section_sec1
+echo sec1.var1 value is \"$var1\"
+
+cfg_section_sec2
+echo sec2.var1 value is \"$var1\"

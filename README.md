@@ -39,6 +39,19 @@ Goto scripts directory and launch [example.sh](https://github.com/albfan/bash-in
 
 Inspect its code, reuse on your scripts
 
+### Updating and saving changes
+
+To update a value
+
+    var=new_value
+    cfg_update <sec> <var>
+
+To save changes
+
+    cfg_writer > newfile.ini
+
+> Take care that saving function will loose comments and indentation, use with care
+
 ### Checking a ini file
 
 If you want to test your existing ini file use [getkeyfromsection.sh](https://github.com/albfan/bash-ini-parser/blob/master/scripts/getkeyfromsection.sh)
