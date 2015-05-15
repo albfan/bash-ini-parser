@@ -22,9 +22,9 @@ Issuing:
 
     $ cfg_parser file.ini
 
-Will declare functions per ini section called cfg.section.<section> which declares variables named as keynames so you can access its values using
+Will declare functions per ini section called cfg&#95;section&#95;&lt;section&gt; which declares variables named as keynames so you can access its values using
 
-    $ cfg.section.<section>
+    $ cfg_section_<section>
     $ echo $key
     value
     $ echo $key2

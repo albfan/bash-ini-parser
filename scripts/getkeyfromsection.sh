@@ -15,7 +15,7 @@ cfg_writer
 echo
 
 # enable section selected
-cfg.section.$TEST_SECTION
+cfg_section_$TEST_SECTION
 
 # show value of section selected
 echo "$TEST_VALUE value is \"${!TEST_VALUE}\""

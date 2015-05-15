@@ -2,6 +2,8 @@
 # based on http://theoldschooldevops.com/2008/02/09/bash-ini-parser/
 #
 
+PREFIX="cfg_section_"
+
 function debug {
    return #abort debug
    echo $*
@@ -29,7 +31,7 @@ function cfg_parser {
    debug "whitespace around"
    ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
    debug
-   ini=( ${ini[*]/#\\[/\}$'\n'cfg.section.} ) # set section prefix
+   ini=( ${ini[*]/#\\[/\}$'\n'"$PREFIX"} ) # set section prefix
    debug
    ini=( ${ini[*]/%\\]/ \(} )   # convert text2function (1)
    debug
@@ -60,7 +62,7 @@ function cfg_writer {
    fun="$(declare -F)"
    fun="${fun//declare -f/}"
    for f in $fun; do
-      [ "${f#cfg.section}" == "${f}" ] && continue
+      [ "${f#$PREFIX}" == "${f}" ] && continue
       item="$(declare -f ${f})"
       item="${item##*\{}"
       item="${item/\}}"
@@ -74,7 +76,7 @@ function cfg_writer {
          item="${item#*;}"
       done
       eval $f
-      echo "[${f#cfg.section.}]"
+      echo "[${f#$PREFIX}]"
       for var in $vars; do
          eval 'local length=${#'$var'[*]}'
          if [ $length == 1 ]
