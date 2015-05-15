@@ -10,44 +10,49 @@ function debug {
 }
 
 function cfg_parser {
-   ini="$(<$1)"                # read the file
+   shopt -p extglob &> /dev/null
+   CHANGE_EXTGLOB=$?
+   if [ $CHANGE_EXTGLOB = 1 ]
+   then
+      shopt -s extglob
+   fi
+   ini="$(<$1)"                 # read the file
    ini="${ini//[/\\[}"          # escape [
    debug
    ini="${ini//]/\\]}"          # escape ]
    debug
-   IFS=$'\n' && ini=( ${ini} ) # convert to line-array
+   IFS=$'\n' && ini=( ${ini} )  # convert to line-array
    debug
-   ini=( ${ini[*]//;*/} )      # remove comments with ;
+   ini=( ${ini[*]//;*/} )       # remove comments with ;
    debug
-   ini=( ${ini[*]/	=/=} )  # remove tabs before =
-   debug
-   ini=( ${ini[*]/#	/} )  # remove init tabs #TODO: remove all not just one
-   debug
-   ini=( ${ini[*]/# /} )  # remove init space #TODO: remove all not just one
-   debug
-   ini=( ${ini[*]/=	/=} )   # remove tabs after =
-   debug
-   ini=( ${ini[*]/ = /=} )   # remove anything with a space around =
+   ini=( ${ini[*]/#+([[:space:]])/} ) # remove init whitespace
+   debug "whitespace around"
+   ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
    debug
    ini=( ${ini[*]/#\\[/\}$'\n'cfg.section.} ) # set section prefix
    debug
-   ini=( ${ini[*]/%\\]/ \(} )    # convert text2function (1)
+   ini=( ${ini[*]/%\\]/ \(} )   # convert text2function (1)
    debug
-   ini=( ${ini[*]/=/=\( } )    # convert item to array
+   ini=( ${ini[*]/=/=\( } )     # convert item to array
    debug
-   ini=( ${ini[*]/%/ \)} )     # close array parenthesis
+   ini=( ${ini[*]/%/ \)} )      # close array parenthesis
    debug
    ini=( ${ini[*]/%\\ \)/ \\} ) # the multiline trick
    debug
    ini=( ${ini[*]/%\( \)/\(\) \{} ) # convert text2function (2)
    debug
-   ini=( ${ini[*]/%\} \)/\}} ) # remove extra parenthesis
+   ini=( ${ini[*]/%\} \)/\}} )  # remove extra parenthesis
    debug
-   ini[0]="" # remove first element
+   ini[0]=""                    # remove first element
    debug
-   ini[${#ini[*]} + 1]='}'    # add the last brace
+   ini[${#ini[*]} + 1]='}'      # add the last brace
    debug
-   eval "$(echo "${ini[*]}")" # eval the result
+   eval "$(echo "${ini[*]}")"   # eval the result
+   if [ $CHANGE_EXTGLOB = 1 ]
+   then
+      shopt -u extglob
+   fi
+
 }
 
 function cfg_writer {
