@@ -61,9 +61,20 @@ function cfg_parser {
 }
 
 function cfg_writer {
+   SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
-   fun="$(declare -F)"
+   if [ -z "$SECTION" ] 
+   then
+      fun="$(declare -F)"
+   else
+      fun="$(declare -F $PREFIX$SECTION)"
+      if [ -z "$fun" ]
+      then
+         echo "section $SECTION not found" >2
+         exit 1
+      fi
+   fi
    fun="${fun//declare -f/}"
    for f in $fun; do
       [ "${f#$PREFIX}" == "${f}" ] && continue
@@ -135,9 +146,20 @@ function cfg_unset {
 }
 
 function cfg_clear {
+   SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
-   fun="$(declare -F)"
+   if [ -z "$SECTION" ] 
+   then
+      fun="$(declare -F)"
+   else
+      fun="$(declare -F $PREFIX$SECTION)"
+      if [ -z "$fun" ]
+      then
+         echo "section $SECTION not found" >2
+         exit 1
+      fi
+   fi
    fun="${fun//declare -f/}"
    for f in $fun; do
       [ "${f#$PREFIX}" == "${f}" ] && continue
@@ -152,7 +174,7 @@ function cfg_update {
    OLDIFS="$IFS"
    IFS=' '$'\n'
    fun="$(declare -F $PREFIX$SECTION)"
-   if [ -z $fun ]
+   if [ -z "$fun" ]
    then
       echo "section $SECTION not found" >2
       exit 1
