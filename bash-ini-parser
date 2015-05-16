@@ -46,6 +46,7 @@ function cfg_parser {
    ini=( ${ini[*]/%\( \)/\(\) \{} ) # convert text2function (2)
    debug
    ini=( ${ini[*]/%\} \)/\}} )  # remove extra parenthesis
+   ini=( ${ini[*]/%\{/\{$'\n''cfg_unset ${FUNCNAME/#'$PREFIX'}'$'\n'} )  # clean previous definition of section 
    debug
    ini[0]=""                    # remove first element
    debug
@@ -68,6 +69,7 @@ function cfg_writer {
       [ "${f#$PREFIX}" == "${f}" ] && continue
       item="$(declare -f ${f})"
       item="${item##*\{}" # remove function definition
+      item="${item##*FUNCNAME*$PREFIX\};}" # remove clear section
       item="${item/\}}"  # remove function close
       item="${item%)*}" # remove everything after parenthesis
       item="${item});" # add close parenthesis
@@ -89,6 +91,44 @@ function cfg_writer {
             echo ";$var is an array" # add comment denoting var is an array
             eval 'echo $var=\"${'$var'[*]}\"' # output array var
          fi
+      done
+   done
+   IFS="$OLDIFS"
+}
+
+function cfg_unset {
+   SECTION=$1
+   OLDIFS="$IFS"
+   IFS=' '$'\n'
+   if [ -z "$SECTION" ] 
+   then
+      fun="$(declare -F)"
+   else
+      fun="$(declare -F $PREFIX$SECTION)"
+      if [ -z "$fun" ]
+      then
+         echo "section $SECTION not found" >2
+         return
+      fi
+   fi
+   fun="${fun//declare -f/}"
+   for f in $fun; do
+      [ "${f#$PREFIX}" == "${f}" ] && continue
+      item="$(declare -f ${f})"
+      item="${item##*\{}" # remove function definition
+      item="${item##*FUNCNAME*$PREFIX\};}" # remove clear section
+      item="${item/\}}"  # remove function close
+      item="${item%)*}" # remove everything after parenthesis
+      item="${item});" # add close parenthesis
+      vars=""
+      while [ "$item" != "" ]
+      do
+         newvar="${item%%=*}" # get item name
+         vars="$vars $newvar" # add name to collection
+         item="${item#*;}" # remove readed line
+      done
+      for var in $vars; do
+         unset $var
       done
    done
    IFS="$OLDIFS"

@@ -89,7 +89,6 @@ Outputs:
 This is more a hack than a reliable parser, so keep in mind things like
 
  - multiword value vars will be arrays so you must access it as `${var[*]}`
- - changing from section to section will not erase previous var declarations
 
 For a trusted parser (but based on python) checkout [crudini](https://github.com/pixelb/crudini)
 
