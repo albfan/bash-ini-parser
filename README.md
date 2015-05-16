@@ -93,6 +93,10 @@ This is more a hack than a reliable parser, so keep in mind things like
 
 For a trusted parser (but based on python) checkout [crudini](https://github.com/pixelb/crudini)
 
+### Alternatives
+
+[bash_ini_parser](https://github.com/rudimeier/bash_ini_parser) a slightly different approach.
+
 ### Credits
 
 This is just an enhacement from http://theoldschooldevops.com/2008/02/09/bash-ini-parser
