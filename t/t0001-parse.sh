@@ -11,9 +11,9 @@ test_description="check parse"
 DIR_TEST=$SHARNESS_TEST_DIRECTORY/t0001
 
 test_expect_success "Whitespace parse" "
-    cfg_parser $DIR_TEST/test1.ini &&
-    cfg_writer > test1.out &&
-    diff -u test1.out $DIR_TEST/test1.out.correct
+    cfg_parser $DIR_TEST/whitespace.ini &&
+    cfg_writer > whitespace.out &&
+    diff -u whitespace.out $DIR_TEST/whitespace.out.correct
 "
 
 test_done
