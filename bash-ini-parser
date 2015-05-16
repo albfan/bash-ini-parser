@@ -94,6 +94,18 @@ function cfg_writer {
    IFS="$OLDIFS"
 }
 
+function cfg_clear {
+   OLDIFS="$IFS"
+   IFS=' '$'\n'
+   fun="$(declare -F)"
+   fun="${fun//declare -f/}"
+   for f in $fun; do
+      [ "${f#$PREFIX}" == "${f}" ] && continue
+      unset -f ${f}
+   done
+   IFS="$OLDIFS"
+}
+
 function cfg_update {
    SECTION=$1
    VAR=$2
