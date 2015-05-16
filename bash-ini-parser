@@ -53,11 +53,12 @@ function cfg_parser {
    ini[${#ini[*]} + 1]='}'      # add the last brace
    debug
    eval "$(echo "${ini[*]}")"   # eval the result
+   EVAL_STATUS=$?
    if [ $CHANGE_EXTGLOB = 1 ]
    then
       shopt -u extglob
    fi
-
+   return $EVAL_STATUS
 }
 
 function cfg_writer {
