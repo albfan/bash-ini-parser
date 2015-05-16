@@ -7,7 +7,9 @@ PREFIX="cfg_section_"
 function debug {
    return #abort debug
    echo $*
+   echo --start--
    echo "${ini[*]}"
+   echo --end--
    echo
 }
 
