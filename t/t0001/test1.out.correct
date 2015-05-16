@@ -1,0 +1,13 @@
+[sec1]
+var1="foo"
+var2="hoge"
+var3="fuga"
+var4="pivo"
+[sec2]
+var1="bar"
+var2="foo"
+var3="eco"
+var4="piyo baz qux"
+;var5 is an array
+var5="foo bar baz hoge"
+var6="hoge"
