@@ -1,4 +1,4 @@
-SHELL_PATH ?= $(SHELL)
+SHELL_PATH ?= /bin/bash
 PROVE ?= prove
 DEFAULT_TEST_TARGET ?= test
 
