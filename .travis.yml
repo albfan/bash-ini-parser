@@ -1,0 +1,17 @@
+language: c
+
+compiler:
+  - gcc
+
+before_install:
+
+script: cd t && make
+
+## whitelist
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    - albertofanjul@gmail.com
