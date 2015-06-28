@@ -1,6 +1,7 @@
-SHELL_PATH ?= /bin/bash
+SHELL_PATH ?= $(SHELL)
 PROVE ?= prove
 DEFAULT_TEST_TARGET ?= test
+TAP_OUT ?= tapout
 
 SHELL_PATH_SQ = $(subst ','\'',$(SHELL_PATH))
 
@@ -14,6 +15,13 @@ test: pre-clean
 prove: pre-clean
 	@echo '*** prove ***'; prove --exec '$(SHELL_PATH_SQ)' $(PROVE_OPTS) $(T) :: $(TEST_OPTS)
 	@$(MAKE) clean-except-prove-cache
+
+tap: pre-clean clean-tap
+	mkdir $(TAP_OUT)
+	@$(MAKE) aggregate-results-and-cleanup
+
+clean-tap:
+	@$(RM) -r $(TAP_OUT)
 
 aggregate-results:
 	@for f in test-results/t*-*.counts; do \
@@ -34,7 +42,11 @@ aggregate-results-and-cleanup: $(T)
 	@$(MAKE) clean
 
 $(T):
-	@echo '*** $@ ***'; '$(SHELL_PATH_SQ)' $@
+ifeq ($(DEFAULT_TEST_TARGET),tap)
+		@echo '*** $@ ***'; '$(SHELL_PATH_SQ)' $@ > $(TAP_OUT)/$@
+else
+		@echo '*** $@ ***'; '$(SHELL_PATH_SQ)' $@
+endif
 
-.PHONY: all test prove aggregate-results $(T)
-.PHONY: pre-clean clean-except-prove-cache clean aggregate-results-and-cleanup
+.PHONY: all test prove tap aggregate-results $(T)
+.PHONY: pre-clean clean-except-prove-cache clean clean-tap aggregate-results-and-cleanup

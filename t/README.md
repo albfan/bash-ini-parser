@@ -24,6 +24,10 @@ or
 
     make DEFAULT_TEST_TARGET=prove
 
+for tap output
+
+    make DEFAULT_TEST_TARGET=tap SHELL=/bin/bash
+
 ## Credits
 
 Makefile was shamelessly stolen from [git-integration](https://github.com/johnkeeping/git-integration/blob/master/t/Makefile)
