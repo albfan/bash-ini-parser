@@ -1,4 +1,4 @@
-## bash-ini-parser [![Build Status](https://travis-ci.org/albfan/bash-ini-parser.svg?branch=master)](https://travis-ci.org/albfan/bash-ini-parser)
+## bash-ini-parser [![Build Status](https://travis-ci.org/albfan/bash-ini-parser.svg?branch=master)](https://travis-ci.org/albfan/bash-ini-parser) [![Coverage Status](https://coveralls.io/repos/albfan/bash-ini-parser/badge.svg?branch=ci&service=github)](https://coveralls.io/github/albfan/bash-ini-parser?branch=ci)
 
 A ini file parser for bash relying only on builtins
 

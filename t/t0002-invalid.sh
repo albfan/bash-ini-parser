@@ -1,17 +1,13 @@
-#!/bin/sh
-
-SHARNESS_TEST_EXTENSION="sh"
+#!/bin/bash
 
 test_description="check invalid ini files"
 
-. sharness/sharness.sh
-
-. ../../bash-ini-parser
-
-DIR_TEST=$SHARNESS_TEST_DIRECTORY/t0002
+. setup.sh
 
 test_expect_success "Invalid line" "
-    test_expect_code 1 cfg_parser $DIR_TEST/invalid.ini
+    export COVERAGE_NAME=invalid_line
+    cp ../.simplecov .
+    test_expect_code 1 $COMMAND cfg_parser $DIR_TEST/invalid.ini
 "
 
 test_done

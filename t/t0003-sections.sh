@@ -1,19 +1,19 @@
-#!/bin/sh
-
-SHARNESS_TEST_EXTENSION="sh"
+#!/bin/bash
 
 test_description="check sections"
 
-. sharness/sharness.sh
-
-. ../../bash-ini-parser
-
-DIR_TEST=$SHARNESS_TEST_DIRECTORY/t0003
+. setup.sh
 
 test_expect_success "Parse sections" "
-    cfg_parser $DIR_TEST/sections.ini
-    cfg_writer > sections.out
-    diff $DIR_TEST/sections.out.correct sections.out
+    export COVERAGE_NAME=sections_parser
+    cp ../.simplecov .
+    $COMMAND cfg_parser $DIR_TEST/sections.ini
+    export COVERAGE_NAME=sections_writer
+    $COMMAND cfg_writer > sections.out
+    if [-z $COVERAGE ]
+    then
+        diff $DIR_TEST/sections.out.correct sections.out
+    fi
 "
 
 test_done

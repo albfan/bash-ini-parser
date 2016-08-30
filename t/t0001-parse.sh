@@ -1,19 +1,19 @@
-#!/bin/sh
-
-SHARNESS_TEST_EXTENSION="sh"
+#!/bin/bash
 
 test_description="check parse"
 
-. sharness/sharness.sh
-
-. ../../bash-ini-parser
-
-DIR_TEST=$SHARNESS_TEST_DIRECTORY/t0001
+. setup.sh
 
 test_expect_success "Whitespace parse" "
-    cfg_parser $DIR_TEST/whitespace.ini &&
-    cfg_writer > whitespace.out &&
-    diff -u whitespace.out $DIR_TEST/whitespace.out.correct
+    export COVERAGE_NAME=whitespace_parser 
+    cp ../.simplecov .
+    $COMMAND cfg_parser $DIR_TEST/whitespace.ini
+    export COVERAGE_NAME=whitespace_writer 
+    $COMMAND cfg_writer > whitespace.out
+    if [-z $COVERAGE ]
+    then
+        diff -u whitespace.out $DIR_TEST/whitespace.out.correct
+    fi
 "
 
 test_done
