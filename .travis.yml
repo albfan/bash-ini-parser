@@ -7,6 +7,20 @@ before_install:
 
 script: cd t && make
 
+env:
+   - COVERAGE=no
+   - COVERAGE=yes COV_PROGRAM="bashcov -r coveralls:Coveralls::SimpleCov::Formatter -r codecov:SimpleCov::Formatter::Codecov -r --"
+before_script:
+   - git clone https://github.com/albfan/bashcov.git
+   - cd bashcov/
+   - gem build bashcov.gemspec
+   - gem install bashcov-1.2.1.gem
+   - cd ..
+   - rm -rf bashcov
+   - gem install codecov
+   - gem install codeclimate-test-reporter
+   - export PATH=$PATH:$PWD
+
 script:
    - ./autogen.sh
    - cd t
