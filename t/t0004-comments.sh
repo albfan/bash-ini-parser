@@ -1,16 +1,14 @@
-#!/bin/sh
-
-SHARNESS_TEST_EXTENSION="sh"
+#!/bin/bash
 
 test_description="check comments"
 
-. sharness/sharness.sh
-
-. ../../bash-ini-parser
+. setup.sh
 
 DIR_TEST=$SHARNESS_TEST_DIRECTORY/t0004
 
-test_expect_success "Parse sections" "
+test_expect_success "Parse comments" "
+    export COVERAGE_NAME=comments_parser
+    cp ../.simplecov .
     cfg_parser $DIR_TEST/comments.ini
     cfg_writer > comments.out
     diff $DIR_TEST/comments.out.correct comments.out

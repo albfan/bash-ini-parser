@@ -5,12 +5,12 @@ compiler:
 
 before_install:
 
-script: cd t && make SHELL=/bin/bash
+script: cd t && make
 
-## whitelist
-branches:
-  only:
-    - master
+script:
+   - ./autogen.sh
+   - cd t
+   - make check
 
 notifications:
   email:
