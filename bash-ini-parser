@@ -30,6 +30,8 @@ function cfg_parser {
    debug
    ini=( ${ini[*]//;*/} )       # remove comments with ;
    debug
+   ini=( ${ini[*]//\#*/} )       # remove comments with #
+   debug
    ini=( ${ini[*]/#+([[:space:]])/} ) # remove init whitespace
    debug "whitespace around"
    ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
