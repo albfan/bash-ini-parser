@@ -21,6 +21,7 @@ function cfg_parser {
       shopt -s extglob
    fi
    ini="$(<$1)"                 # read the file
+   ini=${ini//$'\r'/}           # remove linefeed i.e dos2unix
    ini="${ini//[/\\[}"          # escape [
    debug
    ini="${ini//]/\\]}"          # escape ]
