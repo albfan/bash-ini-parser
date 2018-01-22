@@ -26,10 +26,11 @@ function cfg_parser {
    fi
    ini="$(<$1)"                 # read the file
    ini=${ini//$'\r'/}           # remove linefeed i.e dos2unix
-   ini="${ini//[/\\[}"          # escape [
-   debug
-   ini="${ini//]/\\]}"          # escape ]
-   debug
+
+   ini="${ini//[/\\[}"
+   debug "escaped ["
+   ini="${ini//]/\\]}"
+   debug "escaped ]"
    IFS=$'\n' && ini=( ${ini} )  # convert to line-array
    debug
    ini=( ${ini[*]//;*/} )       # remove comments with ;
@@ -37,7 +38,9 @@ function cfg_parser {
    ini=( ${ini[*]//\#*/} )       # remove comments with #
    debug
    ini=( ${ini[*]/#+([[:space:]])/} ) # remove init whitespace
-   debug "whitespace around"
+   debug
+   ini=( ${ini[*]/%+([[:space:]])/} ) # remove ending whitespace
+   debug "whitespace around ="
    ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
    debug
    ini=( ${ini[*]/#\\[/\}$'\n'"$PREFIX"} ) # set section prefix
