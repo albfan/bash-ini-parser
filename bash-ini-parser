@@ -196,8 +196,8 @@ function cfg_update {
    "
    item="${item}
    }" # close function again
-   
-   eval "function $item" 
+
+   eval "function $item"
 }
 
 
