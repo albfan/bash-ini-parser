@@ -33,10 +33,10 @@ function cfg_parser {
    debug "escaped ]"
    IFS=$'\n' && ini=( ${ini} )  # convert to line-array
    debug
-   ini=( ${ini[*]//;*/} )       # remove comments with ;
-   debug
-   ini=( ${ini[*]//\#*/} )       # remove comments with #
-   debug
+   ini=( ${ini[*]/#*([[:space:]]);*/} )
+   debug "remove ; comments"
+   ini=( ${ini[*]/#*([[:space:]])\#*/} )
+   debug "remove # comments"
    ini=( ${ini[*]/#+([[:space:]])/} ) # remove init whitespace
    debug
    ini=( ${ini[*]/%+([[:space:]])/} ) # remove ending whitespace
