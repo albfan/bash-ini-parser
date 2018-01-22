@@ -16,7 +16,7 @@ Read http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtre
 
 ## automation
 
-Although every test is executable by itselft an only depends on sharness, that's not operative. this test suite relays on [prove](http://search.cpan.org/dist/Test-Harness/bin/prove) and ancient and good-know [make](http://www.gnu.org/software/make/) to complete the test suite. Launch it with 
+Although every test is executable by itself an only depends on sharness, that's not operative. this test suite relays on [prove](http://search.cpan.org/dist/Test-Harness/bin/prove) and ancient and good-know [make](http://www.gnu.org/software/make/) to complete the test suite. Launch it with 
 
     make 
 
