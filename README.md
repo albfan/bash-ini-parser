@@ -1,4 +1,5 @@
-## bash-ini-parser [![Build Status](https://travis-ci.org/albfan/bash-ini-parser.svg?branch=master)](https://travis-ci.org/albfan/bash-ini-parser)
+## bash-ini-parser 
+[![Build Status](https://travis-ci.org/albfan/bash-ini-parser.svg?branch=master)](https://travis-ci.org/albfan/bash-ini-parser)
 
 A ini file parser for bash relying only on builtins
 
@@ -83,6 +84,10 @@ Outputs:
     var6="hoge"
 
     var4 value is "pivo"
+
+### Debugging
+
+declare `BASH_INI_PARSER_DEBUG` and parse will output the ini file processing
     
 ### Drawbacks
 
