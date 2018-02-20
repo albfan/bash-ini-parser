@@ -88,7 +88,10 @@ Outputs:
 ### Debugging
 
 declare `BASH_INI_PARSER_DEBUG` and parse will output the ini file processing
-    
+
+### Hacking zone
+
+bash-ini-parser is based on bash env vars, which do not support all valid characters for ini files. You can define a function to replace dangling characters, See [t0005-invalid-chars.sh](https://github.com/albfan/bash-ini-parser/blob/master/t/t0005-invalid-chars.sh)
 ### Drawbacks
 
 This is more a hack than a reliable parser, so keep in mind things like

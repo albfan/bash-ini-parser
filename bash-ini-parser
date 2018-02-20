@@ -62,6 +62,14 @@ function cfg_parser {
    debug
    ini[${#ini[*]} + 1]='}'      # add the last brace
    debug
+   if [ -v "REPLACE_FUNCTION" ]
+   then
+      ini=($(for i in "${ini[@]}"
+      do
+         $REPLACE_FUNCTION $i
+      done))
+   fi
+   debug
    eval "$(echo "${ini[*]}")"   # eval the result
    EVAL_STATUS=$?
    if [ $CHANGE_EXTGLOB = 1 ]
