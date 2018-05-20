@@ -92,6 +92,7 @@ function cfg_writer {
       item="$(declare -f ${f})"
       item="${item##*\{}" # remove function definition
       item="${item##*FUNCNAME*$PREFIX\};}" # remove clear section
+      item="${item/FUNCNAME\/#$PREFIX;}" # remove line
       item="${item/\}}"  # remove function close
       item="${item%)*}" # remove everything after parenthesis
       item="${item});" # add close parenthesis
