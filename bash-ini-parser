@@ -113,7 +113,7 @@ function cfg_writer {
             echo $var=\"${!var}\" #output var
          else 
             echo ";$var is an array" # add comment denoting var is an array
-            eval 'echo $var=\"${'$var'[*]}\"' # output array var
+            eval 'echo $var=${'$var'[*]}' # output array var
          fi
       done
    done
