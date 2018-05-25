@@ -1,0 +1,6 @@
+[sec1]
+var1="bar"
+var2="foo2"
+[sec2]
+var1="foo"
+var2="foo2"
