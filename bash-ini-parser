@@ -100,9 +100,10 @@ function cfg_writer {
       while [ "$item" != "" ]
       do
          newvar="${item%%=*}" # get item name
-         vars="$vars $newvar" # add name to collection
+         vars="$vars$newvar" # add name to collection
          item="${item#*;}" # remove readed line
       done
+      vars=$(echo "$vars" | sort -u) # remove duplication
       eval $f
       echo "[${f#$PREFIX}]" # output section
       for var in $vars; do
