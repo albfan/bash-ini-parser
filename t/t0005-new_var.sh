@@ -6,7 +6,7 @@ test_description="create new var"
 
 DIR_TEST=$SHARNESS_TEST_DIRECTORY/t0005
 
-test_expect_success "Parse new var" "
+test_expect_failure "Parse new var" "
     export COVERAGE_NAME=new_var_parser
     cp ../.simplecov .
     cfg_parser $DIR_TEST/var.ini
