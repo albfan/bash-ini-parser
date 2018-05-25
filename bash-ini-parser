@@ -82,7 +82,7 @@ function cfg_writer {
       fun="$(declare -F $PREFIX$SECTION)"
       if [ -z "$fun" ]
       then
-         echo "section $SECTION not found" >2
+         echo "section $SECTION not found" 1>&2
          exit 1
       fi
    fi
@@ -131,7 +131,7 @@ function cfg_unset {
       fun="$(declare -F $PREFIX$SECTION)"
       if [ -z "$fun" ]
       then
-         echo "section $SECTION not found" >2
+         echo "section $SECTION not found" 1>&2
          return
       fi
    fi
@@ -169,7 +169,7 @@ function cfg_clear {
       fun="$(declare -F $PREFIX$SECTION)"
       if [ -z "$fun" ]
       then
-         echo "section $SECTION not found" >2
+         echo "section $SECTION not found" 1>&2
          exit 1
       fi
    fi
@@ -189,7 +189,7 @@ function cfg_update {
    fun="$(declare -F $PREFIX$SECTION)"
    if [ -z "$fun" ]
    then
-      echo "section $SECTION not found" >2
+      echo "section $SECTION not found" 1>&2
       exit 1
    fi
    fun="${fun//declare -f/}"
