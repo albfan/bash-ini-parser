@@ -4,14 +4,14 @@ var2="section 1 VAR 2"
 var3="section 1 VAR 3 "
 [section2]
 ;var1 is an array
-var1="section 2 VAR 1"
+var1=section 2 VAR 1
 var2=" section 2 VAR 2"
 ;var3 is an array
-var3="section 2 VAR 3"
+var3=section 2 VAR 3
 ;var4 is an array
-var4="section 2 VAR 4"
+var4=section 2 VAR 4
 ;var5 is an array
-var5="section 2 VAR 5"
+var5=section 2 VAR 5
 [section3]
 var1="section 3 VAR 1"
 var2="section 3 VAR 2"
