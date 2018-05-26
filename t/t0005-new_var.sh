@@ -14,7 +14,7 @@ test_expect_success "Parse new var" "
     var2=bar
     cfg_update sec1 var2
     cfg_writer > var.out
-    diff $DIR_TEST/var.out.correct var.out
+    test_cmp $DIR_TEST/var.out.correct var.out
 "
 
 test_done

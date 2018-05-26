@@ -10,7 +10,7 @@ test_expect_success "Whitespace parse" "
     $COMMAND cfg_parser $DIR_TEST/whitespace.ini
     export COVERAGE_NAME=whitespace_writer 
     $COMMAND cfg_writer > whitespace.out
-    diff -u whitespace.out $DIR_TEST/whitespace.out.correct
+    test_cmp whitespace.out $DIR_TEST/whitespace.out.correct
 "
 
 test_done

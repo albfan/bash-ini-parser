@@ -10,7 +10,7 @@ test_expect_success "Parse sections" "
     $COMMAND cfg_parser $DIR_TEST/sections.ini
     export COVERAGE_NAME=sections_writer
     $COMMAND cfg_writer > sections.out
-    diff $DIR_TEST/sections.out.correct sections.out
+    test_cmp $DIR_TEST/sections.out.correct sections.out
 "
 
 test_done

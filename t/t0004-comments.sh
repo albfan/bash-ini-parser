@@ -11,7 +11,7 @@ test_expect_success "Parse comments" "
     cp ../.simplecov .
     cfg_parser $DIR_TEST/comments.ini
     cfg_writer > comments.out
-    diff $DIR_TEST/comments.out.correct comments.out
+    test_cmp $DIR_TEST/comments.out.correct comments.out
 "
 
 test_done

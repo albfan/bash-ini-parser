@@ -3,6 +3,9 @@ language: c
 compiler:
   - gcc
 
+env:
+   - verbose=t
+
 before_install:
 
 script: cd t && make
@@ -11,6 +14,7 @@ script:
    - ./autogen.sh
    - cd t
    - make check
+   - cat test-suite.log
 
 notifications:
   email:
