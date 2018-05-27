@@ -20,4 +20,11 @@ test_expect_success "var2 execute code" '
  test "$var2" != "hack"
 '
 
+test_expect_success "var2 execute code" '
+ test "$var3" == "100$"
+'
+
+test_expect_success "var2 execute code" '
+ test "$var4" == "use a ``"
+'
 test_done
