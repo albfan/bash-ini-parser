@@ -131,6 +131,12 @@ echo "$res $test_name (exit status: $estatus)" >>$log_file
 # Report outcome to console.
 echo "${col}${res}${std}: $test_name"
 
+if test $estatus != 0 || test "$expect_failure" == "yes"
+then
+    #sed -e "s/^/$log_file:\t/" $log_file # but a cat is fine too
+    cat $log_file
+fi
+
 # Register the test result, and other relevant metadata.
 echo ":test-result: $res" > $trs_file
 echo ":global-test-result: $res" >> $trs_file
