@@ -26,6 +26,8 @@ function cfg_parser {
    fi
    ini="$(<$1)"                 # read the file
    ini=${ini//$'\r'/}           # remove linefeed i.e dos2unix
+   ini="${ini//$/}"             # remove executable
+   ini="${ini//'`'/}"           # remove executable
 
    ini="${ini//[/\\[}"
    debug "escaped ["
