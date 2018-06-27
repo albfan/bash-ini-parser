@@ -5,16 +5,14 @@
 PREFIX="cfg_section_"
 
 function debug {
-   if  ! [ -v "BASH_INI_PARSER_DEBUG" ]
+   if ! [ "x$BASH_INI_PARSER_DEBUG" == "x" ]
    then 
-      #abort debug
-      return
+      echo $*
+      echo --start--
+      echo "${ini[*]}"
+      echo --end--
+      echo
    fi
-   echo $*
-   echo --start--
-   echo "${ini[*]}"
-   echo --end--
-   echo
 }
 
 function cfg_parser {
