@@ -101,7 +101,7 @@ For a trusted parser (but based on python) checkout [crudini](https://github.com
 
 [bash_ini_parser](https://github.com/rudimeier/bash_ini_parser) a slightly different approach.
 
-### How is using bash-ini-parser?
+### Who is using bash-ini-parser?
 
 - https://github.com/CHN-STUDENT/WebServerAutoBackup
 
