@@ -7,7 +7,7 @@ test_description="check invalid ini files"
 test_expect_success "Invalid line" "
     export COVERAGE_NAME=invalid_line
     cp ../.simplecov .
-    test_expect_code 1 $COMMAND cfg_parser $DIR_TEST/invalid.ini
+    test_expect_code 2 $COMMAND cfg_parser $DIR_TEST/invalid.ini
 "
 
 test_done
