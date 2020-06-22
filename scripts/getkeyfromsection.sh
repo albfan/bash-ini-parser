@@ -1,6 +1,13 @@
 #!/bin/bash
 
-source ../bash-ini-parser
+if [ "$#" -ne 3 ]
+then
+  echo provide three parameters
+  echo "$0 <ini.file> <section> <value>"
+  exit 1
+fi
+
+source $(dirname $0)/../bash-ini-parser
 
 TEST_FILE="$1"
 TEST_SECTION="$2"

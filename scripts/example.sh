@@ -2,7 +2,7 @@
 
 TEST_FILE="${1:-file.ini}"
 
-source ../bash-ini-parser
+source $(dirname $0)/../bash-ini-parser
 
 echo show example file
 echo
