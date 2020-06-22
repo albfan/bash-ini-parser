@@ -15,3 +15,6 @@ var5="section 2 VAR 5"
 [section3]
 var1="section 3 VAR 1"
 var2="section 3 VAR 2"
+[section4_subsec]
+var1="section 3 VAR 1"
+var2="section 3 VAR 2"

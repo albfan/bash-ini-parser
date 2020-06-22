@@ -7,8 +7,8 @@ PREFIX="cfg_section_"
 function debug {
    if ! [ "x$BASH_INI_PARSER_DEBUG" == "x" ]
    then 
-      echo $*
-      echo --start--
+      echo
+      echo --start-- $*
       echo "${ini[*]}"
       echo --end--
       echo
@@ -39,10 +39,21 @@ function cfg_parser {
    debug
    ini=( ${ini[*]/%+([[:space:]])/} ) # remove ending whitespace
    debug "whitespace around ="
+   ini=( ${ini[*]/%+([[:space:]])\\]/\\]} ) # remove non meaningful whitespace after sections
+   debug "whitespace around ="
    ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
    debug
    ini=( ${ini[*]/#\\[/\}$'\n'"$PREFIX"} ) # set section prefix
    debug
+   for ((i=0; i < "${#ini[@]}"; i++))
+   do
+      line="${ini[i]}"
+      if [[ "$line" =~ $PREFIX.+ ]]
+      then
+         ini[$i]=${line// /_}
+      fi
+   done
+   debug "subsections"
    ini=( ${ini[*]/%\\]/ \(} )   # convert text2function (1)
    debug
    ini=( ${ini[*]/=/=\( } )     # convert item to array
