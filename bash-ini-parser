@@ -6,7 +6,7 @@ PREFIX="cfg_section_"
 
 function debug {
    if ! [ "x$BASH_INI_PARSER_DEBUG" == "x" ]
-   then 
+   then
       echo
       echo --start-- $*
       echo "${ini[*]}"
@@ -87,7 +87,7 @@ function cfg_writer {
    SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
-   if [ -z "$SECTION" ] 
+   if [ -z "$SECTION" ]
    then
       fun="$(declare -F)"
    else
@@ -123,7 +123,7 @@ function cfg_writer {
          if [ $length == 1 ]
          then
             echo $var=\"${!var}\" #output var
-         else 
+         else
             echo ";$var is an array" # add comment denoting var is an array
             eval 'echo $var=\"${'$var'[*]}\"' # output array var
          fi
@@ -137,7 +137,7 @@ function cfg_unset {
    SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
-   if [ -z "$SECTION" ] 
+   if [ -z "$SECTION" ]
    then
       fun="$(declare -F)"
    else
@@ -175,7 +175,7 @@ function cfg_clear {
    SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
-   if [ -z "$SECTION" ] 
+   if [ -z "$SECTION" ]
    then
       fun="$(declare -F)"
    else
