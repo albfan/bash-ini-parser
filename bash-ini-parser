@@ -42,7 +42,14 @@ function cfg_parser {
    debug "removed ending whitespace"
    ini=( ${ini[*]/%+([[:space:]])\\]/\\]} ) # remove non meaningful whitespace after sections
    debug "removed whitespace after section name"
-   ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
+   if [ $BASH_VERSINFO == 3 ]
+   then
+      ini=( ${ini[*]/+([[:space:]])=/=} ) # remove whitespace before =
+      ini=( ${ini[*]/=+([[:space:]])/=} ) # remove whitespace after =
+      ini=( ${ini[*]/+([[:space:]])=+([[:space:]])/=} ) # remove whitespace around =
+   else
+      ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
+   fi
    debug "removed space around ="
    ini=( ${ini[*]/#\\[/\}$'\n'"$PREFIX"} ) # set section prefix
    debug
