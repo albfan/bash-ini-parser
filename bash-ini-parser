@@ -83,6 +83,7 @@ function cfg_parser {
 }
 
 function cfg_writer {
+   local item fun newvar vars
    SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
@@ -104,7 +105,7 @@ function cfg_writer {
       item="${item##*\{}" # remove function definition
       item="${item##*FUNCNAME*$PREFIX\};}" # remove clear section
       item="${item/FUNCNAME\/#$PREFIX;}" # remove line
-      item="${item/\}}"  # remove function close
+      item="${item/%\}}"  # remove function close
       item="${item%)*}" # remove everything after parenthesis
       item="${item});" # add close parenthesis
       vars=""
@@ -132,6 +133,7 @@ function cfg_writer {
 }
 
 function cfg_unset {
+   local item fun newvar vars
    SECTION=$1
    OLDIFS="$IFS"
    IFS=' '$'\n'
@@ -152,7 +154,7 @@ function cfg_unset {
       item="$(declare -f ${f})"
       item="${item##*\{}" # remove function definition
       item="${item##*FUNCNAME*$PREFIX\};}" # remove clear section
-      item="${item/\}}"  # remove function close
+      item="${item/%\}}"  # remove function close
       item="${item%)*}" # remove everything after parenthesis
       item="${item});" # add close parenthesis
       vars=""
@@ -206,7 +208,7 @@ function cfg_update {
    fun="${fun//declare -f/}"
    item="$(declare -f ${fun})"
    #item="${item##* $VAR=*}" # remove var declaration
-   item="${item/\}}"  # remove function close
+   item="${item/%\}}"  # remove function close
    item="${item}
     $VAR=(${!VAR})
    "
