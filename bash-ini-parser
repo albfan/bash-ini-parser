@@ -33,17 +33,17 @@ function cfg_parser {
    IFS=$'\n' && ini=( ${ini} )  # convert to line-array
    debug
    ini=( ${ini[*]/#*([[:space:]]);*/} )
-   debug "remove ; comments"
+   debug "removed ; comments"
    ini=( ${ini[*]/#*([[:space:]])\#*/} )
-   debug "remove # comments"
+   debug "removed # comments"
    ini=( ${ini[*]/#+([[:space:]])/} ) # remove init whitespace
-   debug
+   debug "removed initial whitespace"
    ini=( ${ini[*]/%+([[:space:]])/} ) # remove ending whitespace
-   debug "whitespace around ="
+   debug "removed ending whitespace"
    ini=( ${ini[*]/%+([[:space:]])\\]/\\]} ) # remove non meaningful whitespace after sections
-   debug "whitespace around ="
+   debug "removed whitespace after section name"
    ini=( ${ini[*]/*([[:space:]])=*([[:space:]])/=} ) # remove whitespace around =
-   debug
+   debug "removed space around ="
    ini=( ${ini[*]/#\\[/\}$'\n'"$PREFIX"} ) # set section prefix
    debug
    for ((i=0; i < "${#ini[@]}"; i++))
