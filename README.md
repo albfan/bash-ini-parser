@@ -107,4 +107,4 @@ For a trusted parser (but based on python) checkout [crudini](https://github.com
 
 ### Credits
 
-This is just an enhacement from http://theoldschooldevops.com/2008/02/09/bash-ini-parser
+This is just an enhacement from [a blog post](https://web.archive.org/web/20180124065211/theoldschooldevops.com/2008/02/09/bash-ini-parser/)
