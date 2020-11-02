@@ -9,5 +9,5 @@ var2=" foo"
 var3="eco"
 var4="piyo baz qux"
 ;var5 is an array
-var5="foo bar baz hoge"
+var5=foo bar baz hoge
 var6="hoge"
