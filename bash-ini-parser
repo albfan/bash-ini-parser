@@ -2,6 +2,8 @@
 # based on http://theoldschooldevops.com/2008/02/09/bash-ini-parser/
 #
 
+set +eu
+
 PREFIX="cfg_section_"
 
 function debug {
