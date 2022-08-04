@@ -22,8 +22,9 @@ function cfg_parser {
    then
       shopt -s extglob
    fi
-   ini="$(<$1)"                 # read the file
-   ini=${ini//$'\r'/}           # remove linefeed i.e dos2unix
+   ini="$(<$1)"                     # read the file
+   ini=${ini//$'\r'/}               # remove linefeed i.e dos2unix
+   ini=$(echo "${ini}" | awk NF)    # Remove the empty lines.
 
    ini="${ini//[/\\[}"
    debug "escaped ["
